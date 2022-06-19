@@ -18,8 +18,7 @@ class Todolist : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
-        val todoListSingleItem = mutableListOf(Todo("first to do",false))
+        val todoListSingleItem = mutableListOf(Todo("first to do", false))
 
         val adapter = TodoAdapter(todoListSingleItem)
         binding.rvTodos.adapter = adapter
@@ -27,7 +26,7 @@ class Todolist : AppCompatActivity() {
 
         binding.btnAddTodo.setOnClickListener {
             val newTodoTitle = binding.etAddTodo.text.toString()
-            val newTodo = Todo(newTodoTitle,false)
+            val newTodo = Todo(newTodoTitle, false)
 
 
             todoListSingleItem.add(newTodo)

@@ -6,13 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.UI.todolist.model.Todo
 import com.example.firstapp.databinding.ItemTodoBinding
 
-class TodoAdapter(var todos:List<Todo>) : RecyclerView.Adapter<TodoAdapter.TodoHolderView>(){
+class TodoAdapter(var todos: List<Todo>) : RecyclerView.Adapter<TodoAdapter.TodoHolderView>() {
 
     inner class TodoHolderView(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root)
 
     // 1 to set the data on the view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoHolderView {
-        return TodoHolderView(ItemTodoBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return TodoHolderView(
+            ItemTodoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     // 2 to bind on the view

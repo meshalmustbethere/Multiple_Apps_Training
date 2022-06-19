@@ -22,7 +22,7 @@ class splashscreen : AppCompatActivity() {
             val intent = Intent(this, Loginactivity::class.java)
             startActivity(intent)
             finish()
-        },500)
+        }, 500)
     }
 }
 
