@@ -2,7 +2,9 @@ package com.example.firstapp.UI.notesApp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firstapp.R
@@ -22,26 +24,36 @@ class NotessActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+
         binding = ActivityNotessBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
         // the adding here ...
         val database = Notesdatabase(this)
         val repository = NotesRepository(database)
         val factory = NotesViewModelFactory(repository)
-        val viewModel = ViewModelProviders.of(this,factory).get(NotesViewModel::class.java)
 
+        // line 38 was using (ViewModelProviders.of) with s, is there any difference
+        val viewModel = ViewModelProvider(this,factory).get(NotesViewModel::class.java)
 
-        val notesSingleItem = mutableListOf(Note("first to do"))
+        //val notesSingleItem = mutableListOf(Note("first to do"))
         val adapter = NotesAdapter(listOf(),viewModel)
 
         binding.rvNote.adapter = adapter
         binding.rvNote.layoutManager = LinearLayoutManager(this)
 
+        viewModel.getAllNotesItems().observe(this, Observer {
+            adapter.notes = it
+            adapter.notifyDataSetChanged() // to update the list
+        })
+
         binding.btnAddNote.setOnClickListener {
             val newNoteTitle = binding.etAddNote.text.toString()
             val newNote = Note(newNoteTitle)
-            notesSingleItem.add(newNote)
+            viewModel.upsert(newNote)
+            //notesSingleItem.add(newNote)
             adapter.notifyDataSetChanged()
             binding.etAddNote.text.clear()
         }

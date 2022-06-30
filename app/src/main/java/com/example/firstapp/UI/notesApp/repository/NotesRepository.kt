@@ -9,6 +9,6 @@ import com.example.firstapp.UI.notesApp.model.Note
 * */
 class NotesRepository (private val db:Notesdatabase){
 
-    suspend fun upsert(item: Note) = db.getNotesDao().upsert(item)
+    fun upsert(item: Note) = db.getNotesDao().upsert(item)
     fun getAllNotesItem() = db.getNotesDao().getAllNotesItem()
 }

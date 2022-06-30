@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NotesViewModel (private val repository: NotesRepository): ViewModel(){
-    fun upsert(item: Note) = CoroutineScope(Dispatchers.Main).launch {
+    fun upsert(item: Note) = CoroutineScope(Dispatchers.IO).launch {
         repository.upsert(item)
     }
     fun getAllNotesItems() = repository.getAllNotesItem()

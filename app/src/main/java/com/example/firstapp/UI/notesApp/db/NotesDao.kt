@@ -19,7 +19,7 @@ and functions, also can inherit multiple times not like original inherit in oop
 interface NotesDao{
     // OnConflictStrategy : replace the (old content) to the --> (new content )
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(item: Note) // suspend to make it visible to the thread
+    fun upsert(item: Note) // suspend to make it visible to the thread
 
     @Query("SELECT * FROM Notes_items")
     fun getAllNotesItem(): LiveData<List<Note>>
